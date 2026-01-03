@@ -89,7 +89,7 @@ jobs:
         env:
           TAILSCALE_AUTH_KEY: ${{ secrets.TAILSCALE_AUTH_KEY }}
         run: |
-          sudo tailscale up --authkey=$TAILSCALE_AUTH_KEY --hostname=linux-manual-fix --ssh
+          sudo tailscale up --authkey="$TAILSCALE_AUTH_KEY" --hostname=github-runner --ssh
 
       - name: Display Connection Info
         run: |
@@ -97,15 +97,15 @@ jobs:
           echo "Tailscale IP:"
           tailscale ip -4
           echo ""
-          echo "Connect with RDP:"
+          echo "RDP Connection Details:"
           echo "  Address: $(tailscale ip -4):3389"
           echo "  Username: runneradmin"
           echo "  Password: password123"
           echo "=========================================="
 
-      - name: Keep Alive Loop
+      - name: Keep Alive
         run: |
-          echo "Desktop running. Cancel workflow to stop."
+          echo "Desktop is running. Cancel workflow to stop."
           while true; do
             sleep 300
           done
